@@ -1,0 +1,82 @@
+{
+  "$schema": "http://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "appService_Review-vies_name": {
+      "type": "string"
+    },
+    "appServicePlan_WebApplication320210208043812Plan_location": {
+      "type": "string"
+    },
+    "appServicePlan_WebApplication320210208043812Plan_name": {
+      "type": "string"
+    },
+    "appServicePlan_WebApplication320210208043812Plan_resourceGroup": {
+      "type": "string"
+    },
+    "appInsightsComponentName_Review-vies_location": {
+      "type": "string"
+    },
+    "appInsightsComponentName_Review-vies_type": {
+      "type": "string"
+    },
+    "appInsightsComponentName_Review-vies_hockeyAppToken": {
+      "type": "string"
+    },
+    "appInsightsComponentName_Review-vies_requestSource": {
+      "type": "string"
+    }
+  },
+  "resources": [
+    {
+      "location": "[parameters('appServicePlan_WebApplication320210208043812Plan_location')]",
+      "name": "[parameters('appService_Review-vies_name')]",
+      "type": "Microsoft.Web/sites",
+      "apiVersion": "2015-08-01",
+      "tags": {
+        "[concat('hidden-related:', resourceId(parameters('appServicePlan_WebApplication320210208043812Plan_resourceGroup'),'Microsoft.Web/serverfarms', parameters('appServicePlan_WebApplication320210208043812Plan_name')))]": "empty"
+      },
+      "kind": "app",
+      "properties": {
+        "name": "[parameters('appService_Review-vies_name')]",
+        "kind": "app",
+        "httpsOnly": true,
+        "serverFarmId": "[resourceId(parameters('appServicePlan_WebApplication320210208043812Plan_resourceGroup'),'Microsoft.Web/serverfarms', parameters('appServicePlan_WebApplication320210208043812Plan_name'))]"
+      },
+      "resources": [
+        {
+          "name": "appsettings",
+          "type": "config",
+          "apiVersion": "2015-08-01",
+          "dependsOn": [
+            "[concat('Microsoft.Web/Sites/', parameters('appService_Review-vies_name'))]",
+            "[concat('microsoft.insights/components/', parameters('appService_Review-vies_name'))]"
+          ],
+          "properties": {
+            "APPINSIGHTS_INSTRUMENTATIONKEY": "[reference(resourceId('Microsoft.Insights/components', parameters('appService_Review-vies_name'))).InstrumentationKey]",
+            "APPINSIGHTS_PROFILERFEATURE_VERSION": "1.0.0",
+            "ApplicationInsightsAgent_EXTENSION_VERSION": "~2",
+            "DiagnosticServices_EXTENSION_VERSION": "~3"
+          }
+        }
+      ]
+    },
+    {
+      "location": "[parameters('appInsightsComponentName_Review-vies_location')]",
+      "name": "[parameters('appService_Review-vies_name')]",
+      "type": "microsoft.insights/components",
+      "apiVersion": "2014-08-01",
+      "tags": {
+        "[concat('hidden-link:', concat('/providers/Microsoft.Web/sites/', parameters('appService_Review-vies_name')))]": "Resource"
+      },
+      "properties": {
+        "ApplicationId": "[parameters('appService_Review-vies_name')]",
+        "Application_Type": "[parameters('appInsightsComponentName_Review-vies_type')]",
+        "HockeyAppToken": "[parameters('appInsightsComponentName_Review-vies_hockeyAppToken')]",
+        "HockeyAppId": "[parameters('appInsightsComponentName_Review-vies_hockeyAppToken')]",
+        "Flow_Type": "Redfield",
+        "Request_Source": "[parameters('appInsightsComponentName_Review-vies_requestSource')]"
+      }
+    }
+  ]
+}
