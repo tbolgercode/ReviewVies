@@ -20,7 +20,8 @@ namespace Review_vies.Controllers
 
         public IActionResult Index()
         {
-            return View();
+
+            return View(new IndexViewModel { Students = new List<string> { "Thomas Bolger", "Stacy Jones", "Robert Jeter", "Daniel Weber", "Yan Xu", "J'marquez Jackson" } });
         }
 
         public IActionResult Privacy()
@@ -33,5 +34,6 @@ namespace Review_vies.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
     }
 }
