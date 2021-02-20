@@ -1,43 +1,33 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json.Linq;
-using Review_vies.HelperClasses;
-using Review_vies.Models;
+﻿using Review_vies.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
+using System.Linq;
 using System.Net;
+using System.Threading.Tasks;
 
-namespace Review_vies.Controllers
+namespace Review_vies.HelperClasses
 {
-    public class ApiController : Controller
+    public class SqlConnector
     {
+        SqlConnection _sqlConn = new SqlConnection("Data Source=reviewvies.database.windows.net;Initial Catalog=ReviewviesDB;User ID=reviewviesadmin;Password=reviewviest3!;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
-        SqlConnector _sqlConnector = new SqlConnector();
-
-        public IActionResult GetMovie(int id)
-        {
-            var result = GetMovieById(id);
-            if (result != null)
-                return Json(result);
-            return Json("Movie not found");
-        }
-
-        [HttpPost]
-        public IActionResult PostMovie(Movie movie)
+        public void PostMovie(Movie movie)
         {
             var movieId = InsertMovieIntoTable(movie);
 
             if (movieId == 0)
             {
-                return Json(HttpStatusCode.InternalServerError);
+                return;
             }
 
             movie.Id = movieId;
 
-            return Json(movie);
+            return ;
         }
 
 
-        public Movie GetMovieById(int id)
+        public static Movie GetMovieById(int id)
         {
 
             //This will eventually be a sql call to get a movie's info by their id.
@@ -82,7 +72,7 @@ namespace Review_vies.Controllers
 
         public bool VerifyMovieAsValid(Movie movie)
         {
-            if(string.IsNullOrEmpty(movie.Title) ||
+            if (string.IsNullOrEmpty(movie.Title) ||
                string.IsNullOrEmpty(movie.Synopsis) ||
                string.IsNullOrEmpty(movie.Description) ||
                string.IsNullOrEmpty(movie.Rating) ||
@@ -110,7 +100,8 @@ namespace Review_vies.Controllers
                 //If something goes wrong
                 return 0;
             }
-            
+
         }
+
     }
 }
