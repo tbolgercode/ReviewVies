@@ -17,5 +17,13 @@ namespace Review_vies.Controllers
             var movie = _sqlConn.GetMovieById(id);
             return View(new MovieViewModel(movie));
         }
+
+        [HttpGet]
+        [Route("movie/{id:int}")]
+        public IActionResult GetMovie([FromRoute]int id)
+        {
+            var movie = _sqlConn.GetMovieById(id);
+            return View("Index",new MovieViewModel(movie));
+        }    
     }
 }

@@ -8,9 +8,28 @@
 
 <div>
     <h4>SearchViewModel</h4>
-    <hr />
-    <dl class="row">
-    </dl>
+    <br />
+    @foreach (var result in Model.Results)
+    {
+        <h5>Title: @result.Title</h5>
+        <p>
+            Rating: @result.Rating
+        </p>
+        <br>
+        <p>
+            Year: @result.Year
+        </p>
+        <br>
+        <p>
+            Director: @result.Director
+        </p>
+        <br>
+        <p>
+            Quality: @result.Scale/5
+        </p>
+        <br />
+        <br />
+    }
 </div>
 <div>
 </div>

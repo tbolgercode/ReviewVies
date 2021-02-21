@@ -4,6 +4,7 @@ using Review_vies.HelperClasses;
 using Review_vies.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 
 namespace Review_vies.Controllers
@@ -37,6 +38,12 @@ namespace Review_vies.Controllers
         public IActionResult SearchByTitle(string searchterm)
         {
             var movies = _sqlConnector.SearchMoviesByTitle(searchterm);
+            return Json(movies);
+        }
+
+        public IActionResult Sample()
+        {
+            var movies = _sqlConnector.SearchMoviesByTitle("").OrderBy(x => Guid.NewGuid()).ToList().Take(5);
             return Json(movies);
         }
 

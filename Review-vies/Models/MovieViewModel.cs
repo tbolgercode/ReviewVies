@@ -15,6 +15,7 @@ namespace Review_vies.Models
             Year = movie.Year;
             Rating = movie.Rating;
             Scale = movie.Scale;
+            Poster = movie.Poster;
         }
 
     }

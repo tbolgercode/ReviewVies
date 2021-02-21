@@ -13,5 +13,6 @@ namespace Review_vies.Models
         public string Year { get; set; } = null;
         public string Rating { get; set; } = null; //PG, G, PG-13, etc.
         public short Scale { get; set; } = 0;
+        public string Poster { get; set; } = null;
     }
 }

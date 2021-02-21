@@ -50,6 +50,11 @@ namespace Review_vies.HelperClasses
                     movie.Scale = reader.GetFieldValue<short>(3);
                     movie.Director = reader.GetFieldValue<string>(4);
                     movie.Id = reader.GetFieldValue<int>(5);
+                    if (!reader.IsDBNull(6))
+                    {
+                        movie.Poster = reader.GetFieldValue<string>(6);
+                    }
+
 
                     SqlConn.Close();
                 }
@@ -86,6 +91,13 @@ namespace Review_vies.HelperClasses
 
                         while (reader.Read())
                         {
+                            var poster = String.Empty;
+                            if (!reader.IsDBNull(6))
+                            {
+                                poster = reader.GetFieldValue<string>(6);
+                            }
+
+
 
                             results.Add(new Movie
                             {
@@ -94,7 +106,8 @@ namespace Review_vies.HelperClasses
                                 Rating = reader.GetFieldValue<string>(2),
                                 Scale = reader.GetFieldValue<short>(3),
                                 Director = reader.GetFieldValue<string>(4),
-                                Id = reader.GetFieldValue<int>(5)
+                                Id = reader.GetFieldValue<int>(5),
+                                Poster = poster
                             });
 
                         }
