@@ -11,12 +11,11 @@ namespace Review_vies.Controllers
 {
     public class MovieController : Controller
     {
-        
+        SqlConnector _sqlConn = new SqlConnector();
         public IActionResult Index(int Id)
         {
-            var moviestring = JsonConvert.SerializeObject(SqlConnector.GetMovieById(Id));
-
-            return View(JsonConvert.DeserializeObject<MovieViewModel>(moviestring)); ;
+            var movie = _sqlConn.GetMovieById(Id);
+            return View(new MovieViewModel(movie));
         }
     }
 }

@@ -11,106 +11,37 @@ namespace Review_vies.Controllers
     public class ApiController : Controller
     {
 
-        SqlConnector _sqlConnector = new SqlConnector();
+        SqlConnector _sqlConnector = new SqlConnector("Data Source = reviewvies.database.windows.net; Initial Catalog = ReviewviesDB; User ID = reviewviesadmin; Password=reviewviest3!;Connect Timeout = 60; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
 
         public IActionResult GetMovie(int id)
         {
-            var result = GetMovieById(id);
-            if (result != null)
-                return Json(result);
-            return Json("Movie not found");
+            var movie = _sqlConnector.GetMovieById(id);
+            return Json(movie);
         }
 
         [HttpPost]
         public IActionResult PostMovie(Movie movie)
         {
-            var movieId = InsertMovieIntoTable(movie);
+            var response = _sqlConnector.VerifyAndInsertSubmittedMovie(movie);
 
-            if (movieId == 0)
+            if (response == 0)
             {
                 return Json(HttpStatusCode.InternalServerError);
             }
-
-            movie.Id = movieId;
-
-            return Json(movie);
+            
+            return Json(response);
         }
 
+        public IActionResult SearchByTitle(string searchterm)
+        {
+            var movies = _sqlConnector.SearchMoviesByTitle(searchterm);
+            return Json(movies);
+        }
 
         public Movie GetMovieById(int id)
         {
-
-            //This will eventually be a sql call to get a movie's info by their id.
-            if (id == 12345)
-            {
-                var movie = new Movie
-                {
-                    Id = 12345,
-                    Actors = new List<string> { "Mark Wahlberg" },
-                    Description = "A placeholder movie data",
-                    Stars = 3,
-                    Title = "Some Movie",
-                    Rating = "PG",
-                    Synopsis = "A placeholder for movie data",
-                    Directors = new List<string> { "John Faverou", "Another Actor" }
-                };
-                return movie;
-
-            }
-            return null;
+            return _sqlConnector.GetMovieById(id);
         }
 
-        public int SearchMoviesByTitle(string searchterm)
-        {
-            //Return sql result searching the table by title
-            return 12345;
-        }
-
-        public int InsertMovieIntoTable(Movie movie)
-        {
-            //Verify movie is ok
-            if (VerifyMovieAsValid(movie))
-            {
-                return VerifyAndInsertSubmittedMovie(movie);
-            }
-            else
-            {
-                //If the movie wasn't valid return 400
-                return 0;
-            }
-        }
-
-        public bool VerifyMovieAsValid(Movie movie)
-        {
-            if(string.IsNullOrEmpty(movie.Title) ||
-               string.IsNullOrEmpty(movie.Synopsis) ||
-               string.IsNullOrEmpty(movie.Description) ||
-               string.IsNullOrEmpty(movie.Rating) ||
-               movie.Id == 0 ||
-               movie.Stars == 0 ||
-               movie.Actors.Count == 0 ||
-               movie.Directors.Count == 0)
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        public int VerifyAndInsertSubmittedMovie(Movie movie)
-        {
-            //Verify movie is ok
-            try
-            {
-                //Try to insert into sql
-                return 12345;
-            }
-            catch (Exception e)
-            {
-                //If something goes wrong
-                return 0;
-            }
-            
-        }
     }
 }

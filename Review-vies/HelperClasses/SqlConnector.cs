@@ -1,6 +1,7 @@
 ﻿using Review_vies.Models;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
@@ -10,76 +11,152 @@ namespace Review_vies.HelperClasses
 {
     public class SqlConnector
     {
-        SqlConnection _sqlConn = new SqlConnection("Data Source=reviewvies.database.windows.net;Initial Catalog=ReviewviesDB;User ID=reviewviesadmin;Password=reviewviest3!;Connect Timeout=60;Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        public string ConnectionString;
 
-        public void PostMovie(Movie movie)
+        public SqlConnector()
         {
-            var movieId = InsertMovieIntoTable(movie);
-
-            if (movieId == 0)
-            {
-                return;
-            }
-
-            movie.Id = movieId;
-
-            return ;
+            ConnectionString = "Data Source = reviewvies.database.windows.net; Initial Catalog = ReviewviesDB; User ID = reviewviesadmin; Password=reviewviest3!;Connect Timeout = 60; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
         }
 
-
-        public static Movie GetMovieById(int id)
+        public SqlConnector(string connString)
         {
-
-            //This will eventually be a sql call to get a movie's info by their id.
-            if (id == 12345)
+            ConnectionString = connString;
+        }        
+        
+        public Movie GetMovieById(int id)
+        {
+            try
             {
-                var movie = new Movie
+                Movie movie = null;
+                using (var SqlConn = new SqlConnection(ConnectionString))
                 {
-                    Id = 12345,
-                    Actors = new List<string> { "Mark Wahlberg" },
-                    Description = "A placeholder movie data",
-                    Stars = 3,
-                    Title = "Some Movie",
-                    Rating = "PG",
-                    Synopsis = "A placeholder for movie data",
-                    Directors = new List<string> { "John Faverou", "Another Actor" }
-                };
-                return movie;
 
+                
+
+                    SqlCommand cmd = new SqlCommand("dbo.SearchForMovieById");
+                    cmd.Connection = SqlConn;
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@SomeId", SqlDbType.Int).Value = id;
+
+                    SqlConn.Open();
+                    var reader = cmd.ExecuteReader();
+                    reader.Read();
+
+                    movie = new Movie();
+                    movie.Title = reader.GetFieldValue<string>(0);
+                    movie.Year = reader.GetFieldValue<string>(1);
+                    movie.Rating = reader.GetFieldValue<string>(2);
+                    movie.Scale = reader.GetFieldValue<short>(3);
+                    movie.Director = reader.GetFieldValue<string>(4);
+                    movie.Id = reader.GetFieldValue<int>(5);
+
+                    SqlConn.Close();
+                }
+                return movie;
             }
-            return null;
+            catch (Exception e)
+            {
+
+                return null;
+            }
         }
 
-        public int SearchMoviesByTitle(string searchterm)
+        public List<Movie> SearchMoviesByTitle(string searchterm)
         {
             //Return sql result searching the table by title
-            return 12345;
+            try
+            {
+                var results = new List<Movie>();
+                using (var SqlConn = new SqlConnection(ConnectionString))
+                {
+                    SqlConn.Open();
+                    SqlCommand cmd = new SqlCommand("dbo.SearchForMovieByTitle");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Connection = SqlConn;
+                    cmd.Parameters.Add("@SomeTitle", SqlDbType.NVarChar).Value = searchterm;
+
+                    var reader = cmd.ExecuteReader();
+
+                    if (reader.HasRows)
+                    {
+
+                        while (reader.Read())
+                        {
+
+                            results.Add(new Movie
+                            {
+                                Title = reader.GetFieldValue<string>(0),
+                                Year = reader.GetFieldValue<string>(1),
+                                Rating = reader.GetFieldValue<string>(2),
+                                Scale = reader.GetFieldValue<short>(3),
+                                Director = reader.GetFieldValue<string>(4),
+                                Id = reader.GetFieldValue<int>(5)
+                            });
+
+                        }
+                        SqlConn.Close();
+                    }
+                    else
+                    {
+                        SqlConn.Close();
+                        return results;
+                    }
+
+                }
+                return results;
+            }
+            catch (Exception e)
+            {
+
+                return null;
+            }
         }
 
         public int InsertMovieIntoTable(Movie movie)
         {
-            //Verify movie is ok
-            if (VerifyMovieAsValid(movie))
+            try
             {
-                return VerifyAndInsertSubmittedMovie(movie);
+            
+                using (var SqlConn = new SqlConnection(ConnectionString))
+                {
+                    SqlConn.Open();
+                    SqlCommand cmd = new SqlCommand("dbo.AddMovie");
+                    cmd.CommandType = CommandType.StoredProcedure;
+                    cmd.Parameters.Add("@Director", SqlDbType.NVarChar).Value = movie.Director;
+                    cmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = movie.Title;
+                    cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = movie.Year;
+                    cmd.Parameters.Add("@Scale", SqlDbType.SmallInt).Value = movie.Scale;
+                    cmd.Parameters.Add("@Rating", SqlDbType.NVarChar).Value = movie.Rating;
+
+
+
+                    var rowsaffected = cmd.ExecuteNonQuery();
+
+                    SqlConn.Close();
+
+                    if (rowsaffected == 1)
+                    {
+                        return rowsaffected;
+                    }
+                    else
+                    {
+                        return 400;
+                    }
+                }
             }
-            else
+            catch (Exception e)
             {
-                //If the movie wasn't valid return 400
-                return 0;
+                return 500;
             }
+
         }
 
         public bool VerifyMovieAsValid(Movie movie)
         {
             if (string.IsNullOrEmpty(movie.Title) ||
-               string.IsNullOrEmpty(movie.Synopsis) ||
-               string.IsNullOrEmpty(movie.Description) ||
                string.IsNullOrEmpty(movie.Rating) ||
-               movie.Id == 0 ||
-               movie.Stars == 0 ||
-               movie.Actors.Count == 0 ||
-               movie.Directors.Count == 0)
+               string.IsNullOrEmpty(movie.Director) ||
+               movie.Scale == 0)
             {
                 return false;
             }
@@ -90,15 +167,21 @@ namespace Review_vies.HelperClasses
         public int VerifyAndInsertSubmittedMovie(Movie movie)
         {
             //Verify movie is ok
-            try
+            if (VerifyMovieAsValid(movie))
             {
-                //Try to insert into sql
-                return 12345;
+                try
+                {
+                    return InsertMovieIntoTable(movie);
+                }
+                catch (Exception e)
+                {
+                    //If something goes wrong
+                    return 503;
+                }
             }
-            catch (Exception e)
+            else
             {
-                //If something goes wrong
-                return 0;
+                return 400;
             }
 
         }
