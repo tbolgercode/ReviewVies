@@ -15,8 +15,9 @@ namespace Review_vies.HelperClasses
 
         public SqlConnector()
         {
-            ConnectionString = "Data Source = reviewvies.database.windows.net; Initial Catalog = ReviewviesDB; User ID = reviewviesadmin; Password=reviewviest3!;Connect Timeout = 60; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
+            ConnectionString = "Data Source = reviewvies.database.windows.net; Initial Catalog = ReviewviesDB; User ID = reviewviesadmin; Password=reviewviest3!;";
         }
+
 
         public SqlConnector(string connString)
         {
@@ -57,7 +58,10 @@ namespace Review_vies.HelperClasses
             catch (Exception e)
             {
 
-                return null;
+                return new Movie
+                {
+                    Title = e.Message
+                };
             }
         }
 
@@ -121,6 +125,7 @@ namespace Review_vies.HelperClasses
                 {
                     SqlConn.Open();
                     SqlCommand cmd = new SqlCommand("dbo.AddMovie");
+                    cmd.Connection = SqlConn;
                     cmd.CommandType = CommandType.StoredProcedure;
                     cmd.Parameters.Add("@Director", SqlDbType.NVarChar).Value = movie.Director;
                     cmd.Parameters.Add("@Title", SqlDbType.NVarChar).Value = movie.Title;

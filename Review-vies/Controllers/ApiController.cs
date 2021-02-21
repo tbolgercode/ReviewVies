@@ -11,8 +11,10 @@ namespace Review_vies.Controllers
     public class ApiController : Controller
     {
 
-        SqlConnector _sqlConnector = new SqlConnector("Data Source = reviewvies.database.windows.net; Initial Catalog = ReviewviesDB; User ID = reviewviesadmin; Password=reviewviest3!;Connect Timeout = 60; Encrypt=True;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+        SqlConnector _sqlConnector = new SqlConnector("Data Source = tcp:reviewvies.database.windows.net; Initial Catalog = ReviewviesDB; User ID = reviewviesadmin; Password=reviewviest3!");
 
+        [HttpGet]
+        [HttpPost]
         public IActionResult GetMovie(int id)
         {
             var movie = _sqlConnector.GetMovieById(id);

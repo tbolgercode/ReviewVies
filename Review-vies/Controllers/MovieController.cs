@@ -12,9 +12,9 @@ namespace Review_vies.Controllers
     public class MovieController : Controller
     {
         SqlConnector _sqlConn = new SqlConnector();
-        public IActionResult Index(int Id)
+        public IActionResult Index(int id)
         {
-            var movie = _sqlConn.GetMovieById(Id);
+            var movie = _sqlConn.GetMovieById(id);
             return View(new MovieViewModel(movie));
         }
     }

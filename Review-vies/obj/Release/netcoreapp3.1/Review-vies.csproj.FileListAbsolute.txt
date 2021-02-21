@@ -106,3 +106,12 @@ C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\ru
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\tr\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\zh-Hans\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\System.Data.SqlClient.dll
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\runtimes\win-arm64\native\sni.dll
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\runtimes\win-x64\native\sni.dll
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\runtimes\win-x86\native\sni.dll
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Release\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Release\netcoreapp3.1\Razor\Views\Movie\Index.cshtml.g.cs
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Release\netcoreapp3.1\Razor\Views\Search\Index.cshtml.g.cs
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Release\netcoreapp3.1\Razor\Views\Submit\New.cshtml.g.cs
