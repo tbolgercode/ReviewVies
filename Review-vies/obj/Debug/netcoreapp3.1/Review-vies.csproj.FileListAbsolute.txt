@@ -90,7 +90,6 @@ C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Debug\netcoreapp3.1\runt
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.1\System.Data.SqlClient.dll
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\staticwebassets\Review-vies.StaticWebAssets.Manifest.cache
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\staticwebassets\Review-vies.StaticWebAssets.xml
-C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\Review-vies.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\Review-vies.RazorAssemblyInfo.cache
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\Review-vies.RazorAssemblyInfo.cs
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\Review-vies.AssemblyInfoInputs.cache
@@ -115,3 +114,4 @@ C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\Revi
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\Review-vies.dll
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\Review-vies.pdb
 C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\Review-vies.csprojAssemblyReference.cache
+C:\Users\TomPC\source\repos\Review-vies\Review-vies\obj\Debug\netcoreapp3.1\Review-vies.MvcApplicationPartsAssemblyInfo.cache

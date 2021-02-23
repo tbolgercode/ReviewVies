@@ -3,33 +3,45 @@
 @{
     ViewData["Title"] = "Search";
 }
-
+@section Scripts{ 
+    <script src="~/js/Search.js"></script>
+}
 <h1>Search</h1>
 
 <div>
     <h4>SearchViewModel</h4>
     <br />
-    @foreach (var result in Model.Results)
+    @if (Model.Results.Any())
     {
-        <h5>Title: @result.Title</h5>
-        <p>
-            Rating: @result.Rating
-        </p>
-        <br>
-        <p>
-            Year: @result.Year
-        </p>
-        <br>
-        <p>
-            Director: @result.Director
-        </p>
-        <br>
-        <p>
-            Quality: @result.Scale/5
-        </p>
-        <br />
-        <br />
+        @foreach (var result in Model.Results)
+        {
+            <h5>Title: @result.Title</h5>
+            <p>
+                Rating: @result.Rating
+            </p>
+            <br>
+            <p>
+                Year: @result.Year
+            </p>
+            <br>
+            <p>
+                Director: @result.Director
+            </p>
+            <br>
+            <p>
+                Quality: @result.Scale/5
+            </p>
+            <br />
+            <br />
+        }
     }
+
+
+    <form>
+        <input type="text" name="SearchInput" id="SearchInputBox"/>
+        <button type="submit" value="submit" onclick="GenerateImagesFromBing();">Submit</button>
+    </form>
 </div>
 <div>
 </div>
+

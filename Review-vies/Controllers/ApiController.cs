@@ -6,6 +6,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Web;
+using System.Net.Http;
+using System.IO;
+using Newtonsoft.Json;
+using System.Net.Http.Headers;
 
 namespace Review_vies.Controllers
 {
@@ -51,6 +56,64 @@ namespace Review_vies.Controllers
         {
             return _sqlConnector.GetMovieById(id);
         }
+
+        public string GetPosters(string querystring)
+        {
+            try
+            {
+                
+                string subscriptionKey = "3ba1335123a64ed8ba84daad45113e8e";
+                var uriBase = "https://api.bing.microsoft.com/v7.0/images/search";
+                var uriQuery = uriBase + "?q=" + Uri.EscapeDataString(querystring);
+
+                var request = WebRequest.Create(uriQuery);
+                request.Headers["Ocp-Apim-Subscription-Key"] = subscriptionKey;
+                var response = (HttpWebResponse)request.GetResponseAsync().Result;
+                string json = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                var results = JsonConvert.DeserializeObject<BingSearchResult>(json);
+                var take5 = results.Value.Take(5).ToList();
+
+                return JsonConvert.SerializeObject(take5);
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public IActionResult GetPosterThumbs(string querystring)
+        {
+            try
+            {
+
+                string subscriptionKey = "3ba1335123a64ed8ba84daad45113e8e";
+                var uriBase = "https://api.bing.microsoft.com/v7.0/images/search";
+                var uriQuery = uriBase + "?q=" + Uri.EscapeDataString(querystring);
+
+                var request = WebRequest.Create(uriQuery);
+                request.Headers["Ocp-Apim-Subscription-Key"] = subscriptionKey;
+                var response = (HttpWebResponse)request.GetResponseAsync().Result;
+                string json = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                var results = JsonConvert.DeserializeObject<BingSearchResult>(json);
+                var take5 = results.Value.Take(5).ToList();
+
+                var resultstring = string.Empty;
+                foreach (var img in take5)
+                {
+                    resultstring = resultstring + "<br>" + "<img src='" + img.thumbnailUrl + "'/>";
+                }
+                return new ContentResult()
+                {
+                    Content = resultstring,
+                    ContentType = "text/html",
+                };
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
 
     }
 }

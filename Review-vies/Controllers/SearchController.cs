@@ -13,6 +13,13 @@ namespace Review_vies.Controllers
         SqlConnector _sqlConnector = new SqlConnector();
         public IActionResult Index(string searchterm)
         {
+            if (string.IsNullOrEmpty(searchterm))
+            {
+                return View(new SearchViewModel
+                {
+                    Results = new List<Movie>()
+                });
+            }
             var results = _sqlConnector.SearchMoviesByTitle(searchterm);
             return View(new SearchViewModel
             {
