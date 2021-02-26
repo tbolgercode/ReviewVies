@@ -1,11 +1,37 @@
-﻿
-@{
-    ViewData["Title"] = "New";
-}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Submit a Movie</title>
+    <link rel="stylesheet" href="Submit.css">
+    <script type="text/javascript" src="Submit.js">
+    </script>
+</head>
 
-<h1>New</h1>
-<div>
-    <img src="~/img/form.jpg" />
-</div>
-<div>
-</div>
+<body>
+    <main>
+        <h1>Submit a Movie Review</h1>
+        <b>Name :</b><input type="text" id="sName"><br><br>
+        <b>Movie :</b><input type="text" id="Movie"><br></br>
+        <h1>Rating</h1>
+        <b>Recommend!:</b><br>
+        <input name="product" value="5" type="radio" onclick="totalIt()" />
+        Excellent! 5 stars
+        <br>
+        <input name="product" value="4" type="radio" onclick="totalIt()" />
+        Great! - 4 stars
+        <br>
+        <input name="product" value="3" type="radio" onclick="totalIt()" />
+        Alright - 3 stars
+        <br>
+        <b>Not Recommended:</b><br>
+        <input name="product" value="2" type="radio" onclick="totalIt()" />
+        Pretty Bad 2 stars<br>
+        <input name="product" value="1" type="radio" onclick="totalIt()" />
+        Horrible 1 star<br>
+
+        <input type="button" id="calculate" value="Submit" onclick="myFunction()"><br>
+        <p id="demo"></p>
+    </main>
+</body>
+</html>
