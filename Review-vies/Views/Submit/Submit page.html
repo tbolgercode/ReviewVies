@@ -1,0 +1,37 @@
+   <!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Submit a Movie</title>
+<link rel="stylesheet" href="future_value.css">
+<script type="text/javascript" src="future_value.js">
+</script>
+</head>
+
+<body>
+<main>
+<h1>Submit a Movie</h1>
+<b>Name :</b><input type="text" id="sName"><br><br>
+       <b>Movie :</b><input type="text" id="Movie"><br></br>
+       <h1>Rating</h1>
+<b>Recommend!:</b><br>
+       <input name="product" value="5" type="checkbox" onclick="totalIt()"/>
+       Excellent! 5 stars
+       <br>
+       <input name="product" value="4" type="checkbox" onclick="totalIt()"/>
+       Great! - 4 stars
+       <br>
+       <input name="product" value="3" type="checkbox" onclick="totalIt()"/>
+       Alright - 3 stars
+       <br>
+       <b>Not Recommended:</b><br>
+       <input name="product" value="2" type="checkbox" onclick="totalIt()"/>
+       Pretty Bad 2 stars<br>
+       <input name="product" value="1" type="checkbox" onclick="totalIt()"/>
+       Horrible 1 star<br>
+      
+<input type="button" id="calculate" value="Submit" onclick="myFunction()"><br>   
+       <p id="demo"></p>      
+</main>
+</body>
+</html>
