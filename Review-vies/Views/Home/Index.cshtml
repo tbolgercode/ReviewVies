@@ -1,6 +1,6 @@
 ﻿@{
     ViewData["Title"] = "ReviewVies";
-    
+
 }
 
 
@@ -10,7 +10,15 @@
     <h1 class="display-4">Welcome</h1>
     <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
 </div>
-@foreach(var student in Model.Students)
+@foreach (var student in Model.Students)
 {
     <h4>Hello @student!</h4>
 }
+
+<button id="ajaxTest" class="form-control-sm">
+    GET DA MOVIES
+</button>
+<div id="ajaxResult">
+
+</div>
+
