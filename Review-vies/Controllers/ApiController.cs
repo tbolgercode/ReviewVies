@@ -36,6 +36,10 @@ namespace Review_vies.Controllers
             {
                 return Json(HttpStatusCode.InternalServerError);
             }
+            if(response == 1)
+            {
+                return RedirectToAction("Index", "Search", new { searchterm = movie.Title });
+            }
             
             return Json(response);
         }

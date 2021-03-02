@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Views\Api\" />
-    <Folder Include="wwwroot\img\" />
   </ItemGroup>
 
 

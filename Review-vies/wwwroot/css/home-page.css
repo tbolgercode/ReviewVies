@@ -1,0 +1,42 @@
+body{
+	background-color: #5C3317;
+}
+header{
+	background-color:  #8C7853;
+	margin: 2%;
+	margin-top: 0px;
+}
+.left{
+	display: inline-block;
+}
+.home-show, .movie-show, .message-show, .navigation-show{
+	float: left;
+    text-decoration: none;
+    height: 100%;
+    width: 100%;
+    display: block;
+    font-size: 18px;
+    color: black;
+    text-align: center;
+    line-height: 110px;
+    margin-left: 1em;
+}
+.search-area,.submit,.head{
+	display: inline-block;
+}
+.search-area{
+	float: left;
+    display: block;
+    margin-left: 8em;
+    margin-bottom: 2.75em;
+}
+.submit{
+	float: left;
+    display: block;
+    margin-bottom: 2.75em;
+}
+main{
+	background-color: #FF7F00;
+	margin: 2%;
+	margin-top: 0px;
+}

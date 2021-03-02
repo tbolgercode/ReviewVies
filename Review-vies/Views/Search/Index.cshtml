@@ -2,46 +2,56 @@
 
 @{
     ViewData["Title"] = "Search";
+
 }
 @section Scripts{ 
     <script src="~/js/Search.js"></script>
 }
-<h1>Search</h1>
-
-<div>
-    <h4>SearchViewModel</h4>
-    <br />
-    @if (Model.Results.Any())
-    {
-        @foreach (var result in Model.Results)
-        {
-            <h5>Title: @result.Title</h5>
-            <p>
-                Rating: @result.Rating
-            </p>
-            <br>
-            <p>
-                Year: @result.Year
-            </p>
-            <br>
-            <p>
-                Director: @result.Director
-            </p>
-            <br>
-            <p>
-                Quality: @result.Scale/5
-            </p>
-            <br />
-            <br />
-        }
-    }
 
 
-    <form>
-        <input type="text" name="SearchInput" id="SearchInputBox"/>
-        <button type="submit" value="submit" onclick="GenerateImagesFromBing();">Submit</button>
-    </form>
+<div class="row">
+    <div class="col-3">
+        <h1>Search Movies</h1>
+    </div>
+    <div class="col-9 mt-3">
+        <form id="searchForm">
+            <input type="text" name="SearchInput" id="SearchInputBox" />
+            <button type="submit" id="searchSubmit" value="submit">Submit</button>
+        </form>
+    </div>
+
 </div>
-<div>
-</div>
+<div id="movieResults">
+     @if (Model.Results.Any())
+     {
+        <div class="row  ml-3">
+            <div class="row">
+                @foreach (var result in Model.Results)
+                {
+
+                    <div class="col-6 mb-2">
+                        <div class="card" style="width: 500px;">
+                            <div class="row no-gutters">
+                                <div class="col-sm-5">
+                                    <img class="card-img" style="width: 200px; height: 300px" src="@result.Poster">
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@result.Title</h5>
+                                        <p class="card-text">Director: @result.Director</p>
+                                        <p class="card-text">Year: @result.Year</p>
+                                        <p class="card-text">Rating: @result.Rating</p>
+                                        <p class="card-text">Quality: @result.Scale/5</p>
+                                        <a href="/movie/@result.Id" class="btn btn-primary">View Movie</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                }
+            </div>
+        </div>
+     }
+ </div>
 

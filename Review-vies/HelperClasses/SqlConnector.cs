@@ -145,6 +145,7 @@ namespace Review_vies.HelperClasses
                     cmd.Parameters.Add("@Year", SqlDbType.NVarChar).Value = movie.Year;
                     cmd.Parameters.Add("@Scale", SqlDbType.SmallInt).Value = movie.Scale;
                     cmd.Parameters.Add("@Rating", SqlDbType.NVarChar).Value = movie.Rating;
+                    cmd.Parameters.Add("@Poster", SqlDbType.NVarChar).Value = movie.Poster;
 
 
 

@@ -2,23 +2,45 @@
     ViewData["Title"] = "ReviewVies";
 
 }
+<link href="~/css/home-page.css" rel="stylesheet" />
 
+<header style="text-align: center">
+    <div class="head">
+        <ul class="menu">
 
+            <div class="row">
+                <div class="col-3">
+                    <li class="left"><a class="logo-show" href="https://review-vies.azurewebsites.net/"><img width="170" height="170" src="img/logo.png" alt="reviewvies"></a></li>
+                </div>
+                <div class="col-9">
+                    <div class="row">
+                        <div class="col-2">
+                            <li class="left"><a class="home-show" href="https://review-vies.azurewebsites.net/">Home</a></li>
+                        </div>
+                        <div class="col-2">
+                            <li class="left"><a class="movie-show" href="/search">Search</a></li>
+                        </div>
+                        <div class="col-2">
+                            <li class="left"><a class="message-show" href="/submit">Submit</a></li>
+                        </div>
+                    </div>
+                    <div class="row col-12">
+                        <form action="/search" method="get">
+                            <input type="text" name="searchterm" placeholder="Enter Name of the movie" size="50" style="width: 360px; height: 48px;" class="ml-0 col-8">
+                            <button type="submit" name="submit" class="col-8" style="width: 100px; height: 50px;">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
+</ul>
+    </div>
+</header>
+<main>
+    <h3>Recommended Movies</h3>
+</main>
+<div class="row ml-3">
+    <div id="exampleMovies" onload="GetReccommended()">
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    </div>
 </div>
-@foreach (var student in Model.Students)
-{
-    <h4>Hello @student!</h4>
-}
-
-<button id="ajaxTest" class="form-control-sm">
-    GET DA MOVIES
-</button>
-<div id="ajaxResult">
-
-</div>
-

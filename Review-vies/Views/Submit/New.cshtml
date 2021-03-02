@@ -1,37 +1,59 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>Submit a Movie</title>
-    <link rel="stylesheet" href="Submit.css">
-    <script type="text/javascript" src="Submit.js">
-    </script>
+    <link href="~/css/Submit.css" rel="stylesheet" />
+    <script src="~/js/jquery-1.12.4.min.js"></script>
+    <script src="~/js/Submit.js"></script>
+
 </head>
 
 <body>
     <main>
         <h1>Submit a Movie Review</h1>
-        <b>Name :</b><input type="text" id="sName"><br><br>
-        <b>Movie :</b><input type="text" id="Movie"><br></br>
-        <h1>Rating</h1>
-        <b>Recommend!:</b><br>
-        <input name="product" value="5" type="radio" onclick="totalIt()" />
-        Excellent! 5 stars
-        <br>
-        <input name="product" value="4" type="radio" onclick="totalIt()" />
-        Great! - 4 stars
-        <br>
-        <input name="product" value="3" type="radio" onclick="totalIt()" />
-        Alright - 3 stars
-        <br>
-        <b>Not Recommended:</b><br>
-        <input name="product" value="2" type="radio" onclick="totalIt()" />
-        Pretty Bad 2 stars<br>
-        <input name="product" value="1" type="radio" onclick="totalIt()" />
-        Horrible 1 star<br>
+        <form action="/api/PostMovie" method="post">
+            <b>Movie :</b><input type="text" id="Movie" name="Title"><br></br>
+            <b>Director :</b><input type="text" id="Director" name="Director"><br></br>
+            <b>Year :</b><input type="text" id="Year" name="Year"><br></br>
+            <b>Poster Link :</b><input type="text" id="posterSelected" name="Poster"><br></br>
+            <b>Rating:</b>
+            <select id="ratingSelect" name="Rating">
+                <option value="R">R</option>
+                <option value="NC-17">NC-17</option>
+                <option value="PG-13">PG-13</option>
+                <option value="PG">PG</option>
+                <option value="G">G</option>
+            </select>
+            <h1>Quality:</h1>
+            <b>Recommend!:</b><br>
+            <input name="Scale" value="5" type="radio" onclick="totalIt()" />
+            Excellent! 5 stars
+            <br>
+            <input name="Scale" value="4" type="radio" onclick="totalIt()" />
+            Great! - 4 stars
+            <br>
+            <input name="Scale" value="3" type="radio" onclick="totalIt()" />
+            Alright - 3 stars
+            <br>
+            <b>Not Recommended:</b><br>
+            <input name="Scale" value="2" type="radio" onclick="totalIt()" />
+            Pretty Bad 2 stars<br>
+            <input name="Scale" value="1" type="radio" onclick="totalIt()" />
+            Horrible 1 star<br>
 
-        <input type="button" id="calculate" value="Submit" onclick="myFunction()"><br>
-        <p id="demo"></p>
+
+
+            <button type="submit" value="Submit">Submit</button><br>
+        </form>
+        <p>
+            <div class="row justify-content-around" id="posterSelection">
+
+            </div>
+            <div>
+                <button id="triggerFindPosters" onclick="GetPosters()">Preview Posters!</button>
+            </div>
+        </p>
     </main>
 </body>
 </html>
