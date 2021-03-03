@@ -17,7 +17,7 @@ namespace Review_vies.Controllers
             {
                 return View(new SearchViewModel
                 {
-                    Results = new List<Movie>()
+                    Results = _sqlConnector.SearchMoviesByTitle("")
                 });
             }
             var results = _sqlConnector.SearchMoviesByTitle(searchterm);
